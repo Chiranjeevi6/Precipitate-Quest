@@ -5,8 +5,9 @@ var background_music: AudioStreamPlayer2D
 var masterVolume = 1
 var musicVolume = 1
 var sfxVolume = 1
-@onready var button_order = ["mapMenu/map/map-level1", "mapMenu/map/map-level2", "mapMenu/map/map-level3", "mapMenu/map/map-level4"]
+var curr_scene = ""
 
+@onready var button_order = ["mapMenu/map/map-level1", "mapMenu/map/map-level2", "mapMenu/map/map-level3", "mapMenu/map/map-level4"]
 # Called when the node enters the scene tree for the first time
 func _ready():
 	background_music = $"background-music"
@@ -21,13 +22,21 @@ func _process(delta):
 # Main Menu code
 # --------------------------------------------------------------
 
-# Start Button - Go to the Map
+# Start Button - Go to the Map and create the table
 func _on_mainstart_btn_pressed():
 	$"sound-effect".play()
+
+	# Initialize the SQLite database object
 	$mapMenu.visible = true
 	$mainMenu.visible = false
 	$descMenu.visible = false
 	$insrMenu.visible = false
+	$Control/SID.visible = false
+	$Control/FirstName.visible = false
+	$Control/LastName.visible = false
+	$Control/Label.visible = false
+	$Control/Label2.visible = false
+	$Control/Label3.visible = false
 	update_level_access()
 
 # Options Button - Go to the option
@@ -45,7 +54,7 @@ func _on_maindesc_btn_pressed():
 	$mainMenu.visible = false
 	$descMenu.visible = true
 	$insrMenu.visible = false
-	
+
 func _on_maininsr_btn_pressed():
 	$"sound-effect".play()
 	$mapMenu.visible = false
@@ -53,7 +62,6 @@ func _on_maininsr_btn_pressed():
 	$descMenu.visible = false
 	$insrMenu.visible = true
 
-# Complete the game
 func _complete_game():
 	$"sound-effect".play()
 	$mapMenu.visible = false
@@ -67,17 +75,13 @@ func _complete_game():
 # --------------------------------------------------------------
 
 func update_level_access():
-	# Only level 1 is accessible at first
+	# Unlock all levels
 	for x in range(button_order.size()):
-		if x == 0 or Global.pq_progress[x - 1]:  # Unlock level if the previous one is completed
-			get_node(button_order[x]).set_disabled(false)  # Unlock the level button
-			get_node(button_order[x]).add_theme_color_override("font_color", "Green")  # Show the level as accessible
-		else:
-			get_node(button_order[x]).set_disabled(true)  # Lock the level button
-			get_node(button_order[x]).add_theme_color_override("font_color", "Gray")  # Show the level as locked
+		get_node(button_order[x]).set_disabled(false)  # Unlock the level button
+		get_node(button_order[x]).add_theme_color_override("font_color", "Green")  # Show the level as accessible
 
 func congrats():
-	# Check if all levels are completedd
+	# Check if all levels are completed
 	for lvl in Global.pq_progress:
 		if !lvl:
 			return
@@ -142,9 +146,41 @@ func _on_optionsfx_box_toggled(toggled_on):
 # Switch scene when a level button is pressed
 func _on_mapbtn_pressed(level):
 	$"sound-effect".play()
+	var database = SQLite.new()
+	database.path = "res://data.db"  # Specify the path to your SQLite database
+	var db_opened = database.open_db()
+
+	if db_opened:
+		print("Opened database successfully (" + database.path + ")")
+		
+		# Create the players table if it doesn't exist
+		var table = {
+			"sid" : {"data_type": "text", "primary_key": true, "not_null": true},
+			"first_name" : {"data_type": "text"},
+			"last_name" : {"data_type": "text"},
+			"current_level" : {"data_type": "text"},
+			"score" : {"data_type": "int"}
+		}
+		database.create_table("players", table)
+	else:
+		print("Failed to open database!")
+
+	# Get and print the current scene name
+	var curr_scene = get_tree().current_scene.name
+	print("Current scene: " + curr_scene)
+	var data = {
+		"sid" : $Control/SID.text,
+		"first_name" : $Control/FirstName.text,
+		"last_name" : $Control/LastName.text,
+		"current_level" : curr_scene,
+		"score" : null
+	}
+	database.insert_row("players", data)
 	$mapMenu.visible = false
 	$mainMenu.visible = false
 	get_tree().change_scene_to_file("res://pq/" + level + ".tscn")
+
+	
 
 # Back Button: Go back to the main menu
 func _on_mapback_btn_pressed():

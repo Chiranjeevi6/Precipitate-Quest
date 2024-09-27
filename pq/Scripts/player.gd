@@ -32,4 +32,3 @@ func _stop():
 	$Pants.stop()
 	$Hair.stop()
 	
-

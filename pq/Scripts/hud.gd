@@ -4,22 +4,24 @@ var button_options = ["", "", ""]
 var puddle = ""
 var curr_scene = ""
 var health_var = 3
-var points = 0
+var questions_correct = 0  # Variable to hold correctly answered questions
+var points = 0              # Variable to hold points
+var questions_needed = 0     # Variable to hold questions needed for level completion
 var is_help_active = false
-var points_needed = 0  # Variable to hold points needed for level completion
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	curr_scene = get_tree().current_scene.name
 	match curr_scene:
 		"level1":
-			points_needed = 25
+			questions_needed = 10
 		"level2":
-			points_needed = 50
+			questions_needed = 7
 		"level3":
-			points_needed = 75
+			questions_needed = 7
 		"level4":
-			points_needed = 100  # Set points needed for level 4
+			questions_needed = 7
+
 	$ScienceScript.startGameText()
 	updateText()
 
@@ -32,6 +34,7 @@ func updateText():
 	$Flasks/FlaskHolder/Option2.text = button_options[1]
 	$Flasks/FlaskHolder/Option3.text = button_options[2]
 	$Puddle.text = puddle
+	$PointsLabel.text = "Points: " + str(points)  # Update points display
 
 func _on_chem_button_pressed(button):
 	if ($PauseButton.button_pressed):
@@ -45,8 +48,7 @@ func _on_chem_button_pressed(button):
 		# If textbox is inactive meaning player is playing, throw the chemical
 		get_tree().call_group("flask_reactions", "flask_throw")
 		$ScienceScript.flask_throw(puddle, button_options[button])
-		$HelpButton/SolubilityChart.hide()
-		$HelpButton/SolubilityKey.hide()
+		$HelpButton.show()
 		$PauseButton.show()
 		$Health.show()
 		$PointsLabel.show()
@@ -59,29 +61,36 @@ func incorrect():
 	$Health.get_children()[health_var].hide()
 	$Textbox.visible = true
 	$Textbox/TextboxScript.update_dolphin_textbox("Make sure that you add a soluble ionic compound so that the ions are free to react.")
-	$Textbox/TextboxContainer.visible = true
-	if (health_var == 0):
+	$Textbox/TextboxContainer.visible = true	
+	# Create a timer to hide the text box after 5 seconds
+	await get_tree().create_timer(5).timeout
+	$Textbox.visible = false
+	$Textbox/TextboxContainer.visible = false
+	if health_var == 0:
 		$Flasks.hide()
 		$PauseButton.hide()
 		$Puddle.hide()
 		$PointsLabel.hide()
 		$Retry.show()
 		$ExitButton.show()
+		$HelpButton.hide()
 	else:
 		$Flasks.show()
 
+
 func correct():
-	var points_increment = 5
-	points += points_increment  # Increment global points
-	print(points)
-	$PointsLabel.text = "Points : " + str(points)
-	
+	questions_correct += 1  # Increment correctly answered questions
+	points += 1              # Increment points for each correct answer
+	print("Correct questions: ", questions_correct, "Points: ", points)
+
+	$PointsLabel.text = "Points: " + str(points)
+
 	$correct.play()
 	await get_tree().create_timer(2).timeout
 	get_tree().call_group("flask_reactions", "success")
 	await get_tree().create_timer(3).timeout
-	
-	if points < points_needed:
+
+	if questions_correct < questions_needed:
 		$Health.hide()
 		self.hide()
 		$ScienceScript.startGameText()
@@ -95,8 +104,8 @@ func correct():
 		$Health.show()
 		$Flasks.show()
 	else:
-		# If points or progress exceeds the threshold
-		print("YES!")
+		# If questions correct exceeds the threshold
+		print("Level complete!")
 		match curr_scene:
 			"level1":
 				Global.pq_progress[0] = true
@@ -105,7 +114,7 @@ func correct():
 			"level3":
 				Global.pq_progress[2] = true
 			"level4":
-				Global.pq_progress[3] = true  # Track progress for level 4
+				Global.pq_progress[3] = true
 		_on_exit_button_pressed()
 		$Flasks.show()
 
@@ -118,20 +127,39 @@ func _on_pause_button_toggled(toggled_on):
 	$HelpButton.visible = !toggled_on
 	$Puddle.visible = !toggled_on
 
-func _on_help_button_toggled(toggled_on):
-	is_help_active = toggled_on
-	$HelpButton.visible = true
-	$PauseButton.visible = !toggled_on
-	$ExitButton.visible = false
-	#$HelpButton/SolubilityChart.visible = toggled_on
-	#$HelpButton/SolubilityKey.visible = toggled_on
-	$Health.visible = !toggled_on
-	$PointsLabel.visible = !toggled_on
-	$Textbox.visible = toggled_on
-	$Textbox/TextboxScript.update_dolphin_textbox(hint_dict[puddle])
-	$Textbox/TextboxContainer.visible = toggled_on
-	
+var help_button_press_count = 0  # Counter for help button presses
 
+func _on_help_button_toggled(toggled_on):
+	help_button_press_count += 1
+	if help_button_press_count % 2 == 1:
+		is_help_active = true
+		$HelpButton.visible = true
+		$PauseButton.visible = false
+		$ExitButton.visible = false
+		$Health.visible = false
+		$PointsLabel.visible = false
+		$Textbox.visible = true
+		$Textbox/TextboxScript.update_dolphin_textbox(hint_dict[puddle])
+		$Textbox/TextboxContainer.visible = true
+		$HelpButton/chart.visible = true  # Show the chart
+	else:
+		is_help_active = false
+		$HelpButton.visible = true  # Keep help button visible
+		$PauseButton.visible = true
+		$ExitButton.visible = false
+		$Health.visible = true
+		$PointsLabel.visible = true
+		$Textbox.visible = false
+		$Textbox/TextboxContainer.visible = false
+		$HelpButton/chart.visible = false
+		$HelpButton/chart/SolubilityChart.visible = false
+		$HelpButton/chart/SolubilityKey.visible = false
+	
+func _on_chart_pressed(toggled_on):
+	is_help_active = toggled_on
+	$HelpButton/chart/SolubilityChart.visible = toggled_on
+	$HelpButton/chart/SolubilityKey.visible = toggled_on
+	
 func _on_exit_button_pressed():
 	get_tree().change_scene_to_file("res:///pq/Menu/main_menu.tscn")
 
@@ -177,8 +205,3 @@ var hint_dict = {
 	#"pause" : "Pausing shows a hint! The help button shows a solubility table. (Finding tables online may be needed). You can exit now.",
 	#"play" : "press play when you are ready to throw the phial"
 #}
-
-
-func _on_chart_pressed(toggled_on):
-	$HelpButton/SolubilityChart.visible = toggled_on
-	$HelpButton/SolubilityKey.visible = toggled_on

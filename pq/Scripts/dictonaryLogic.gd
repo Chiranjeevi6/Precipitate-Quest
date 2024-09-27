@@ -1,5 +1,5 @@
 extends Node
-
+var curr_scene = ""
 var correct_dict = {
 	"K⁺  Cl⁻": "AgF",  # problem 1
 	"Na⁺  C₂O₄²⁻": "CaCl₂",  # problem 2
@@ -64,11 +64,13 @@ func shuffle_and_update(puddle_key):
 	get_parent().call("updateText")
 
 func startGameText():
-	var randomIndex = randi() % problem_options.size()
-	var randomKey = problem_options[randomIndex]
-	problem_options.remove_at(randomIndex)
-	var randomList = problem_dict[randomKey]
-	get_parent().puddle = randomKey
-	randomList.shuffle()
-	get_parent().button_options = randomList
-	get_parent().call("updateText")
+	curr_scene = get_tree().current_scene.name
+	if(curr_scene != "level1"):
+		var randomIndex = randi() % problem_options.size()
+		var randomKey = problem_options[randomIndex]
+		problem_options.remove_at(randomIndex)
+		var randomList = problem_dict[randomKey]
+		get_parent().puddle = randomKey
+		randomList.shuffle()
+		get_parent().button_options = randomList
+		get_parent().call("updateText")

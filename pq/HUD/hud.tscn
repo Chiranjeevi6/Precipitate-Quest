@@ -6,12 +6,12 @@
 [ext_resource type="FontFile" uid="uid://ct7ojstm5cw6x" path="res://pq/HUD/Sprites/VremyafwfItalic-YzKL.ttf" id="4_noo73"]
 [ext_resource type="Texture2D" uid="uid://dn07w2hysgkgn" path="res://pq/Assets/Flask.png" id="4_xrnw3"]
 [ext_resource type="Texture2D" uid="uid://b6jjqnwxrx6qy" path="res://pq/Assets/Heart.png" id="5_6ylvo"]
-[ext_resource type="Texture2D" uid="uid://che52yai5poi7" path="res://pq/Assets/Pause.png" id="6_kf4im"]
-[ext_resource type="Texture2D" uid="uid://dobemjowh6w3h" path="res://pq/Assets/Play.png" id="7_5d8xk"]
-[ext_resource type="Texture2D" uid="uid://cruwekyplwdg" path="res://pq/Assets/Help.png" id="8_e4ntm"]
+[ext_resource type="Texture2D" uid="uid://becmf37mbsf0r" path="res://pq/HUD/pause.png" id="7_j1m16"]
+[ext_resource type="Texture2D" uid="uid://bgja3be5r4ia3" path="res://pq/HUD/play-button-arrowhead.png" id="8_nt88m"]
 [ext_resource type="Texture2D" uid="uid://vltlhj1ralop" path="res://pq/Assets/Solubility Chart.png" id="9_fq6th"]
+[ext_resource type="Texture2D" uid="uid://brwoeqh8gn451" path="res://pq/HUD/definition.png" id="9_rod4o"]
+[ext_resource type="Texture2D" uid="uid://do2dkmsfv4016" path="res://pq/HUD/research.png" id="10_3m5j5"]
 [ext_resource type="Texture2D" uid="uid://d2kicc5tdrjdi" path="res://pq/Assets/Chart Key.png" id="10_rubwi"]
-[ext_resource type="Texture2D" uid="uid://cyuwblrskdhy1" path="res://pq/HUD/flask.png" id="10_sq0jb"]
 [ext_resource type="Texture2D" uid="uid://v2cf311wr38l" path="res://pq/Assets/Progress Bar.png" id="11_2v3lc"]
 [ext_resource type="FontFile" uid="uid://dhmgxrust5hrw" path="res://pq/HUD/BitFontMakrSporty.ttf" id="12_eoikg"]
 [ext_resource type="Script" path="res://pq/Scripts/TextboxScript.gd" id="13_iod6u"]
@@ -105,42 +105,44 @@ scale = Vector2(5, 5.11)
 texture = ExtResource("5_6ylvo")
 
 [node name="PauseButton" type="TextureButton" parent="."]
-offset_left = 1025.0
-offset_top = 12.0
-offset_right = 1138.0
-offset_bottom = 137.0
+offset_left = 1038.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 126.0
 toggle_mode = true
-texture_normal = ExtResource("6_kf4im")
-texture_pressed = ExtResource("7_5d8xk")
+texture_normal = ExtResource("7_j1m16")
+texture_pressed = ExtResource("8_nt88m")
 stretch_mode = 0
 
 [node name="HelpButton" type="TextureButton" parent="."]
-offset_left = 904.0
-offset_top = 12.0
-offset_right = 1017.0
-offset_bottom = 137.0
+offset_left = 934.0
+offset_top = 1.0
+offset_right = 1047.0
+offset_bottom = 126.0
 toggle_mode = true
-texture_normal = ExtResource("8_e4ntm")
-texture_pressed = ExtResource("7_5d8xk")
+texture_normal = ExtResource("9_rod4o")
+texture_pressed = ExtResource("8_nt88m")
 stretch_mode = 0
 
 [node name="chart" type="TextureButton" parent="HelpButton"]
+visible = false
 layout_mode = 0
-offset_left = -87.0
-offset_top = 25.0
-offset_right = -23.0
-offset_bottom = 95.0
-texture_normal = ExtResource("10_sq0jb")
+offset_left = -124.0
+offset_top = 3.0
+offset_right = 4.0
+offset_bottom = 131.0
+toggle_mode = true
+texture_normal = ExtResource("10_3m5j5")
 
 [node name="SolubilityChart" type="Sprite2D" parent="HelpButton/chart"]
 visible = false
-position = Vector2(-498, 234)
+position = Vector2(-404, 240)
 scale = Vector2(0.552, 0.552)
 texture = ExtResource("9_fq6th")
 
 [node name="SolubilityKey" type="Sprite2D" parent="HelpButton/chart"]
 visible = false
-position = Vector2(-790, 554)
+position = Vector2(-697, 561)
 scale = Vector2(0.048, 0.048)
 texture = ExtResource("10_rubwi")
 
@@ -272,5 +274,5 @@ stream = ExtResource("17_wlhxi")
 [connection signal="pressed" from="Flasks/FlaskHolder/Option3" to="." method="_on_chem_button_pressed" binds= [2]]
 [connection signal="toggled" from="PauseButton" to="." method="_on_pause_button_toggled"]
 [connection signal="toggled" from="HelpButton" to="." method="_on_help_button_toggled"]
-[connection signal="pressed" from="HelpButton/chart" to="." method="_on_chart_pressed"]
+[connection signal="toggled" from="HelpButton/chart" to="." method="_on_chart_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

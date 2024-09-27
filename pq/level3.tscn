@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://crpxmt80bemi8" path="res://pq/Player/player.tscn" id="3_0uxyf"]
 [ext_resource type="PackedScene" uid="uid://bae5h6dmehftf" path="res://pq/Level/level3_map.tscn" id="3_6vi5y"]
 
-[node name="level3" type="Node" groups=["flask_reactions"]]
+[node name="Hard" type="Node" groups=["flask_reactions"]]
 script = ExtResource("1_242oy")
 
 [node name="HUD" parent="." instance=ExtResource("1_r72v4")]
 
 [node name="Player" parent="." groups=["flask_reactions"] instance=ExtResource("3_0uxyf")]
-position = Vector2(194, 272)
+position = Vector2(117, 368)
 
 [node name="World" parent="." groups=["flask_reactions"] instance=ExtResource("3_6vi5y")]
+position = Vector2(92, -2)
