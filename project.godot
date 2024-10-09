@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Precipitate Quest"
-run/main_scene="res://pq/Menu/main_menu.tscn"
+run/main_scene="res://pq/Authentication.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.407843, 1, 0.886275, 1)
 boot_splash/image="res://pq/icon.png"
@@ -24,10 +24,15 @@ buses/default_bus_layout="res://pq/default_bus_layout.tres"
 [autoload]
 
 Global="*res://pq/global.gd"
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg")
 
 [filesystem]
 

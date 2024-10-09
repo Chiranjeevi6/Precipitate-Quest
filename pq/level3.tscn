@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://crpxmt80bemi8" path="res://pq/Player/player.tscn" id="3_0uxyf"]
 [ext_resource type="PackedScene" uid="uid://bae5h6dmehftf" path="res://pq/Level/level3_map.tscn" id="3_6vi5y"]
 
-[node name="Hard" type="Node" groups=["flask_reactions"]]
+[node name="level3" type="Node" groups=["flask_reactions"]]
 script = ExtResource("1_242oy")
 
 [node name="HUD" parent="." instance=ExtResource("1_r72v4")]

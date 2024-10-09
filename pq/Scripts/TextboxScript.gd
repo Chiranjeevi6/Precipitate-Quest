@@ -19,10 +19,8 @@ func _ready():
 		update_dolphin_textbox("Welcome to the Level - 1")
 	elif (curr_scene == "level2"):
 		update_dolphin_textbox("Welcome to the Level - 2")
-	elif (curr_scene == "level3"):
-		update_dolphin_textbox("Welcome to the Level - 3")
 	else:
-		update_dolphin_textbox("Welcome to the Level - 4")
+		update_dolphin_textbox("Welcome to the Level - 3")
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

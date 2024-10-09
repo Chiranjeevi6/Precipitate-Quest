@@ -525,21 +525,6 @@ position = Vector2(7319, 531)
 scale = Vector2(4.00569, 3.925)
 sprite_frames = SubResource("SpriteFrames_nolgw")
 
-[node name="Puddle8" type="AnimatedSprite2D" parent="."]
-position = Vector2(8471, 529)
-scale = Vector2(4.00569, 3.925)
-sprite_frames = SubResource("SpriteFrames_nolgw")
-
-[node name="Puddle9" type="AnimatedSprite2D" parent="."]
-position = Vector2(9625, 532)
-scale = Vector2(4.00569, 3.925)
-sprite_frames = SubResource("SpriteFrames_nolgw")
-
-[node name="Puddle10" type="AnimatedSprite2D" parent="."]
-position = Vector2(10779, 529)
-scale = Vector2(4.00569, 3.925)
-sprite_frames = SubResource("SpriteFrames_nolgw")
-
 [node name="PuddleTop6" type="AnimatedSprite2D" parent="."]
 position = Vector2(6167, 351)
 scale = Vector2(5.48438, 5)
@@ -549,27 +534,6 @@ frame_progress = 1.0
 
 [node name="PuddleTop7" type="AnimatedSprite2D" parent="."]
 position = Vector2(7319, 350)
-scale = Vector2(5.48438, 5)
-sprite_frames = SubResource("SpriteFrames_upbi6")
-frame = 16
-frame_progress = 1.0
-
-[node name="PuddleTop8" type="AnimatedSprite2D" parent="."]
-position = Vector2(8472, 351)
-scale = Vector2(5.48438, 5)
-sprite_frames = SubResource("SpriteFrames_upbi6")
-frame = 16
-frame_progress = 1.0
-
-[node name="PuddleTop9" type="AnimatedSprite2D" parent="."]
-position = Vector2(9625, 353)
-scale = Vector2(5.48438, 5)
-sprite_frames = SubResource("SpriteFrames_upbi6")
-frame = 16
-frame_progress = 1.0
-
-[node name="PuddleTop10" type="AnimatedSprite2D" parent="."]
-position = Vector2(10776, 350)
 scale = Vector2(5.48438, 5)
 sprite_frames = SubResource("SpriteFrames_upbi6")
 frame = 16

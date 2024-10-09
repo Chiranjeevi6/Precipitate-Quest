@@ -1,7 +1,7 @@
 [gd_scene load_steps=80 format=3 uid="uid://bae5h6dmehftf"]
 
 [ext_resource type="Script" path="res://pq/Scripts/world.gd" id="1_bupnu"]
-[ext_resource type="Texture2D" uid="uid://bjln6ux7tm3yc" path="res://pq/Assets/Level/Background/salmon-color-solid-background-1920x1080.png" id="2_jbn5q"]
+[ext_resource type="Texture2D" uid="uid://ciqc75kqbrklp" path="res://pq/Assets/Level/Background/level4-bg.jpg" id="3_ai8co"]
 [ext_resource type="Texture2D" uid="uid://comn55s0itvc2" path="res://pq/Assets/Level/puddle_success.png" id="4_6gcf3"]
 [ext_resource type="Texture2D" uid="uid://dai14vroxnf6i" path="res://pq/Assets/Level/Starter Tiles Platformer/Terrain (16x16).png" id="5_1pibd"]
 [ext_resource type="Texture2D" uid="uid://cxx885xcwm2sf" path="res://pq/Assets/Level/puddle_splash.png" id="6_5pqww"]
@@ -684,19 +684,20 @@ script = ExtResource("1_bupnu")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="Sprite2D" parent="ParallaxBackground"]
-visible = false
 texture_repeat = 2
-scale = Vector2(0.599479, 0.6)
-texture = ExtResource("2_jbn5q")
+scale = Vector2(1.80093, 1.4)
+texture = ExtResource("3_ai8co")
 centered = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 
 [node name="Skyline" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 texture_filter = 2
 texture_repeat = 2
-position = Vector2(0, 3)
-scale = Vector2(2.06655, 1.93462)
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(1.79316, 1.38611)
 centered = false
 
 [node name="Puddle" type="AnimatedSprite2D" parent="."]

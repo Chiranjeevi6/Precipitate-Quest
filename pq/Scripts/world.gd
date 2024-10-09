@@ -9,28 +9,23 @@ var should_move = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	curr_scene = get_tree().current_scene.name
-	if(curr_scene == "level1" or curr_scene == "level2" or curr_scene == "level3" or curr_scene == "level4"):
+	if(curr_scene == "level1" or curr_scene == "level2" or curr_scene == "level3"):
 		puddle_tops.append($PuddleTop)
 		puddles.append($Puddle)
 		puddle_tops.append($PuddleTop2)
-		puddle_tops.append($PuddleTop3)
 		puddles.append($Puddle2)
+		puddle_tops.append($PuddleTop3)
 		puddles.append($Puddle3)
 		puddle_tops.append($PuddleTop4)
-		puddle_tops.append($PuddleTop5)
 		puddles.append($Puddle4)
+		puddle_tops.append($PuddleTop5)
 		puddles.append($Puddle5)
 		puddle_tops.append($PuddleTop6)
-		puddle_tops.append($PuddleTop7)
 		puddles.append($Puddle6)
+		puddle_tops.append($PuddleTop7)
 		puddles.append($Puddle7)
-		if(curr_scene == "level1"):
-			puddle_tops.append($PuddleTop8)
-			puddle_tops.append($PuddleTop9)
-			puddles.append($Puddle8)
-			puddles.append($Puddle9)
-			puddle_tops.append($PuddleTop10)
-			puddles.append($Puddle10)
+		puddle_tops.append($PuddleTop8)
+		puddles.append($Puddle8)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

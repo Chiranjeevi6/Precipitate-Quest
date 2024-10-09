@@ -253,10 +253,10 @@ theme_override_font_sizes/font_size = 60
 text = "Sorry.. Try again next time!"
 
 [node name="PointsLabel" type="Label" parent="."]
-offset_left = 47.0
-offset_top = 14.0
-offset_right = 339.0
-offset_bottom = 118.0
+offset_left = 107.0
+offset_top = 18.0
+offset_right = 328.0
+offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("4_noo73")
 theme_override_font_sizes/font_size = 55
 text = "Points : 0 "
@@ -268,6 +268,14 @@ stream = ExtResource("16_m06uk")
 
 [node name="wrong" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("17_wlhxi")
+
+[node name="QNo" type="Label" parent="."]
+offset_top = 38.0
+offset_right = 94.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 20
+text = "QNo : 1"
+vertical_alignment = 1
 
 [connection signal="pressed" from="Flasks/FlaskHolder/Option1" to="." method="_on_chem_button_pressed" binds= [0]]
 [connection signal="pressed" from="Flasks/FlaskHolder/Option2" to="." method="_on_chem_button_pressed" binds= [1]]

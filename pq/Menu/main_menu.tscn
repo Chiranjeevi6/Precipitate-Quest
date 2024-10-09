@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://3wst5lguyl3g"]
+[gd_scene load_steps=92 format=3 uid="uid://3wst5lguyl3g"]
 
 [ext_resource type="Script" path="res://pq/Scripts/main_menu.gd" id="1_a3tfa"]
 [ext_resource type="Texture2D" uid="uid://b7itd3t515owx" path="res://pq/Assets/Level/Background/Sky_bg_1.png" id="2_aalpp"]
@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bwi1t4tsbjgxg" path="res://pq/HUD/Sprites/number-1.png" id="17_128n7"]
 [ext_resource type="Texture2D" uid="uid://dvymle06p1i18" path="res://pq/HUD/Sprites/number-2.png" id="18_610l3"]
 [ext_resource type="Texture2D" uid="uid://d2ej5rjf3aaaf" path="res://pq/HUD/Sprites/number-3.png" id="19_k38qx"]
-[ext_resource type="Texture2D" uid="uid://dnoi3ah0lffan" path="res://pq/HUD/Sprites/number-4.png" id="20_2srih"]
+[ext_resource type="Texture2D" uid="uid://cdpevbfxtckw" path="res://pq/user-logout.png" id="23_dwtkx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8fca"]
 atlas = ExtResource("15_1sjec")
@@ -486,16 +486,6 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_juiy7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4qki0"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srfl0"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0lv7g"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fv1nk"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuw1o"]
-
 [node name="menu" type="Node2D"]
 position = Vector2(-315, 691)
 script = ExtResource("1_a3tfa")
@@ -560,10 +550,10 @@ texture = ExtResource("6_ovrkj")
 [node name="mainMenu" type="Node2D" parent="."]
 
 [node name="main-title" type="Label" parent="mainMenu"]
-offset_left = 316.0
-offset_top = -674.0
-offset_right = 4156.0
-offset_bottom = -478.0
+offset_left = 320.0
+offset_top = -562.0
+offset_right = 4160.0
+offset_bottom = -366.0
 scale = Vector2(0.3, 0.3)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("16_2m0ov")
@@ -573,27 +563,27 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="main-startBtn" type="TextureButton" parent="mainMenu"]
-offset_left = 740.0
-offset_top = -361.0
-offset_right = 1004.0
-offset_bottom = -105.0
+offset_left = 744.0
+offset_top = -504.0
+offset_right = 1008.0
+offset_bottom = -248.0
 texture_normal = ExtResource("8_yxea1")
 
 [node name="main-descBtn" type="TextureButton" parent="mainMenu"]
-offset_left = 1375.0
-offset_top = -132.0
-offset_right = 1447.0
-offset_bottom = -60.0
+offset_left = 860.0
+offset_top = -293.0
+offset_right = 932.0
+offset_bottom = -221.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("9_l4blo")
 metadata/_edit_use_anchors_ = true
 
 [node name="main-insrBtn" type="TextureButton" parent="mainMenu"]
-offset_left = 1290.0
-offset_top = -132.0
-offset_right = 1362.0
-offset_bottom = -60.0
+offset_left = 772.0
+offset_top = -290.0
+offset_right = 844.0
+offset_bottom = -218.0
 texture_normal = ExtResource("10_j5ytj")
 
 [node name="descMenu" type="Node2D" parent="."]
@@ -718,13 +708,12 @@ theme_override_constants/line_spacing = 100
 theme_override_font_sizes/font_size = 90
 text = "The water contains harmful chemicals to neutralize. Choose the right option to dissolve or eliminate these harmful chemicals from water. 
 The process is split into multiple levels, with increasing difficulty. You start with Level 1, which is already unlocked for you. 
-To unlock higher levels, like 2, 3, and 4, complete Level 1.Each level tests your knowledge of water treatment or chemical neutralization.
+To unlock higher levels, like 2 and 3 complete Level 1.Each level tests your knowledge of water treatment or chemical neutralization.
   
 Level 1:  5 questions testing basic concepts of dissolving chemicals. Answering all correctly gives you 25 points and unlocks Level 2.  
 Level 2: This level has 10 questions, more challenging than before. Questions focus on deeper chemical reactions and water purification. 
 Completing this earns you 50 points and unlocks Level 3.  
 Level 3:  Like Level 2 but more complex with advanced technical questions.  
-Level 4:  The final, hardest level, assessing expert-level knowledge. 
 Each stage must be passed before moving to the next level. "
 
 [node name="finishMenu" type="Node2D" parent="."]
@@ -879,29 +868,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_juiy7")
 icon = ExtResource("19_k38qx")
 metadata/_edit_use_anchors_ = true
 
-[node name="map-level4" type="Button" parent="mapMenu/map"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 2846.29
-offset_top = -1163.08
-offset_right = 3358.29
-offset_bottom = -651.077
-grow_vertical = 2
-theme_override_colors/font_hover_color = Color(0.986752, 0.986752, 0.986752, 1)
-theme_override_colors/font_pressed_color = Color(0.982343, 0.982342, 0.982342, 1)
-theme_override_colors/font_color = Color(0.986752, 0.986752, 0.986752, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("10_im8wy")
-theme_override_font_sizes/font_size = 10
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4qki0")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_srfl0")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_0lv7g")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_fv1nk")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_fuw1o")
-icon = ExtResource("20_2srih")
-
 [node name="map-backBtn" type="TextureButton" parent="mapMenu/map"]
 anchors_preset = -1
 anchor_left = 0.00011972
@@ -936,72 +902,16 @@ stream = ExtResource("14_iwete")
 [node name="sound-effect" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_j7oga")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 641.0
-offset_top = -505.0
-offset_right = 711.0
-offset_bottom = -465.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "SID"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 655.0
-offset_top = -438.0
-offset_right = 787.0
-offset_bottom = -395.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "First Name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label3" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 648.0
-offset_top = -370.0
-offset_right = 787.0
-offset_bottom = -327.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "Last Name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SID" type="TextEdit" parent="Control"]
-layout_mode = 0
-offset_left = 844.0
-offset_top = -504.0
-offset_right = 999.0
-offset_bottom = -453.0
-
-[node name="FirstName" type="TextEdit" parent="Control"]
-layout_mode = 0
-offset_left = 844.0
-offset_top = -441.0
-offset_right = 999.0
-offset_bottom = -390.0
-
-[node name="LastName" type="TextEdit" parent="Control"]
-layout_mode = 0
-offset_left = 844.0
-offset_top = -371.0
-offset_right = 999.0
-offset_bottom = -320.0
+[node name="logoutBtn" type="TextureButton" parent="."]
+offset_left = 956.0
+offset_top = -288.0
+offset_right = 996.0
+offset_bottom = -248.0
+texture_normal = ExtResource("23_dwtkx")
 
 [connection signal="pressed" from="mainMenu/main-startBtn" to="." method="_on_mainstart_btn_pressed"]
-[connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_mainexit_btn_pressed"]
 [connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_maindesc_btn_pressed"]
+[connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_mainexit_btn_pressed"]
 [connection signal="pressed" from="mainMenu/main-insrBtn" to="." method="_on_maininsr_btn_pressed"]
 [connection signal="pressed" from="descMenu/desc/desc-backBtn" to="." method="_on_optionback_btn_pressed"]
 [connection signal="pressed" from="descMenu/desc/desc-backBtn" to="." method="_on_mapback_btn_pressed"]
@@ -1010,5 +920,5 @@ offset_bottom = -320.0
 [connection signal="pressed" from="mapMenu/map/map-level1" to="." method="_on_mapbtn_pressed" binds= ["level1"]]
 [connection signal="pressed" from="mapMenu/map/map-level2" to="." method="_on_mapbtn_pressed" binds= ["level2"]]
 [connection signal="pressed" from="mapMenu/map/map-level3" to="." method="_on_mapbtn_pressed" binds= ["level3"]]
-[connection signal="pressed" from="mapMenu/map/map-level4" to="." method="_on_mapbtn_pressed" binds= ["level4"]]
 [connection signal="pressed" from="mapMenu/map/map-backBtn" to="." method="_on_mapback_btn_pressed"]
+[connection signal="pressed" from="logoutBtn" to="." method="_on_logout_btn_pressed"]
