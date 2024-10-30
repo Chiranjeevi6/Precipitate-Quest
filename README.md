@@ -1,4 +1,4 @@
-#![Splash Screen](start.png)
+#![Splash Screen](Start.png)
 # ![Game Icon](pq/icon.png) Precipitate Quest 
 ## Description
 
@@ -43,7 +43,7 @@ The aim of "Precipitate Quest" is to provide students with an engaging, interact
 
 ## Screenshots
 
-![Main Menu](pq/icon.png) ![splash screen](start.png)
+![Main Menu](pq/icon.png) ![splash screen](Start.png)
 ![levels](levels.png) 
 
 ## Technologies Used
