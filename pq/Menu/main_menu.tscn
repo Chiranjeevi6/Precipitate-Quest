@@ -486,15 +486,15 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_juiy7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4qki0"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srfl0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuw1o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0lv7g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fv1nk"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fuw1o"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srfl0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4qki0"]
 
 [node name="menu" type="Node2D"]
 position = Vector2(-315, 691)
@@ -820,11 +820,11 @@ mouse_default_cursor_shape = 2
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("16_2m0ov")
 theme_override_font_sizes/font_size = 240
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xucqo")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_xucqo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xucqo")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_xucqo")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_xucqo")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_xucqo")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xucqo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xucqo")
 icon = ExtResource("17_128n7")
 icon_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -839,18 +839,18 @@ offset_left = -1860.5
 offset_top = 328.549
 offset_right = -1538.5
 offset_bottom = 547.549
-theme_override_colors/font_hover_color = Color(0.866667, 0.866667, 0.866667, 1)
-theme_override_colors/font_pressed_color = Color(0.733333, 0.733333, 0.733333, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.733333, 0.733333, 0.733333, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.866667, 0.866667, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("10_im8wy")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/focus = SubResource("StyleBoxEmpty_aydve")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_aydve")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aydve")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_aydve")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_aydve")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_aydve")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_aydve")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aydve")
 icon = ExtResource("18_610l3")
 metadata/_edit_use_anchors_ = true
 
@@ -864,18 +864,18 @@ offset_left = 317.912
 offset_top = -1077.77
 offset_right = 1199.14
 offset_bottom = -565.774
-theme_override_colors/font_hover_color = Color(0.866667, 0.866667, 0.866667, 1)
-theme_override_colors/font_pressed_color = Color(0.733333, 0.733333, 0.733333, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.733333, 0.733333, 0.733333, 1)
+theme_override_colors/font_hover_color = Color(0.866667, 0.866667, 0.866667, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("10_im8wy")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/focus = SubResource("StyleBoxEmpty_juiy7")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_juiy7")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_juiy7")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_juiy7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_juiy7")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_juiy7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_juiy7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_juiy7")
 icon = ExtResource("19_k38qx")
 metadata/_edit_use_anchors_ = true
 
@@ -888,18 +888,18 @@ offset_top = -1163.08
 offset_right = 3358.29
 offset_bottom = -651.077
 grow_vertical = 2
-theme_override_colors/font_hover_color = Color(0.986752, 0.986752, 0.986752, 1)
-theme_override_colors/font_pressed_color = Color(0.982343, 0.982342, 0.982342, 1)
 theme_override_colors/font_color = Color(0.986752, 0.986752, 0.986752, 1)
+theme_override_colors/font_pressed_color = Color(0.982343, 0.982342, 0.982342, 1)
+theme_override_colors/font_hover_color = Color(0.986752, 0.986752, 0.986752, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("10_im8wy")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4qki0")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_srfl0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fuw1o")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_0lv7g")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fv1nk")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_fuw1o")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_srfl0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4qki0")
 icon = ExtResource("20_2srih")
 
 [node name="map-backBtn" type="TextureButton" parent="mapMenu/map"]
@@ -1000,15 +1000,11 @@ offset_right = 999.0
 offset_bottom = -320.0
 
 [connection signal="pressed" from="mainMenu/main-startBtn" to="." method="_on_mainstart_btn_pressed"]
-[connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_mainexit_btn_pressed"]
 [connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_maindesc_btn_pressed"]
+[connection signal="pressed" from="mainMenu/main-descBtn" to="." method="_on_mainexit_btn_pressed"]
 [connection signal="pressed" from="mainMenu/main-insrBtn" to="." method="_on_maininsr_btn_pressed"]
 [connection signal="pressed" from="descMenu/desc/desc-backBtn" to="." method="_on_optionback_btn_pressed"]
 [connection signal="pressed" from="descMenu/desc/desc-backBtn" to="." method="_on_mapback_btn_pressed"]
 [connection signal="pressed" from="insrMenu/insr/insr-backBtn" to="." method="_on_optionback_btn_pressed"]
 [connection signal="pressed" from="insrMenu/insr/insr-backBtn" to="." method="_on_mapback_btn_pressed"]
-[connection signal="pressed" from="mapMenu/map/map-level1" to="." method="_on_mapbtn_pressed" binds= ["level1"]]
-[connection signal="pressed" from="mapMenu/map/map-level2" to="." method="_on_mapbtn_pressed" binds= ["level2"]]
-[connection signal="pressed" from="mapMenu/map/map-level3" to="." method="_on_mapbtn_pressed" binds= ["level3"]]
-[connection signal="pressed" from="mapMenu/map/map-level4" to="." method="_on_mapbtn_pressed" binds= ["level4"]]
 [connection signal="pressed" from="mapMenu/map/map-backBtn" to="." method="_on_mapback_btn_pressed"]
