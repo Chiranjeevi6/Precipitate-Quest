@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precipitate Quest</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: url('images/bg.jpg') no-repeat center center fixed;
+            background-size: 100% 100%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar {
+            background-color: rgba(0, 0, 0, 0.600);
+            width: 250px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #ffcc00;
+            font-size: 1.3em;
+            margin: 15px 0;
+            padding: 10px;
+            display: block;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #ffcc00;
+            color: black;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.700);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffcc00;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+            color: #ffcc00;
+        }
+
+        input, select {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 2px solid #ffcc00;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+            font-size: 1.1em;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ffffff;
+        }
+
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .options-container input {
+            flex: 1;
+            min-width: calc(33% - 10px);
+        }
+
+        button {
+            padding: 15px 40px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.5em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.4);
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #e65c00;
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                width: 95%;
+                padding: 30px;
+            }
+
+            .options-container input {
+                min-width: calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                justify-content: space-around;
+                position: static;
+                box-shadow: none;
+            }
+
+            .container {
+                margin-top: 20px;
+                padding: 20px;
+                top: 0;
+            }
+
+            .options-container input {
+                min-width: 100%;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            button {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyChcFtCcNRJGQVyK9TgixJjzxFlwQqcGgo",
+          authDomain: "precipitatequest.firebaseapp.com",
+          projectId: "precipitatequest",
+          storageBucket: "precipitatequest.appspot.com",
+          messagingSenderId: "303381060115",
+          appId: "1:303381060115:web:e3526edec4576f3552fde6",
+          measurementId: "G-5WVWHY1WTT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function saveQuestion() {
+            const selectedLevel = document.getElementById('level').value;
+            const userInput = document.getElementById('question').value.trim();
+            const option1 = document.getElementById('option1').value.trim();
+            const option2 = document.getElementById('option2').value.trim();
+            const option3 = document.getElementById('option3').value.trim();
+            const answer = document.getElementById('answer').value.trim();
+
+            // Check if all fields are filled
+            if (!userInput || !option1 || !option2 || !option3 || !answer) {
+                alert('Please fill out all fields: question, options, and answer.');
+                return;
+            }
+
+            // Ensure options are unique
+            const options = [option1, option2, option3];
+            if (new Set(options).size !== options.length) {
+                alert('All options must be different.');
+                return;
+            }
+
+            // Ensure the answer is one of the options
+            if (!options.includes(answer)) {
+                alert('The answer must match one of the provided options.');
+                return;
+            }
+
+            const questionCollection = collection(db, "questions");
+
+            const questionQuery = query(questionCollection,
+                where("question", "==", userInput),
+                where("level", "==", selectedLevel)
+            );
+
+            const querySnapshot = await getDocs(questionQuery);
+
+            // Check if the question already exists
+            if (!querySnapshot.empty) {
+                alert('Given question already exists in this level.');
+                return;
+            }
+
+            try {
+                let newEntry = {
+                    level: selectedLevel,
+                    question: userInput,
+                    options: options,
+                    answer: answer
+                };
+
+                await addDoc(questionCollection, newEntry);
+                alert('Question added successfully!');
+                document.getElementById('level').value = "1";
+                document.getElementById('question').value = "";
+                document.getElementById('option1').value = "";
+                document.getElementById('option2').value = "";
+                document.getElementById('option3').value = "";
+                document.getElementById('answer').value = "";
+            } catch (error) {
+                console.error("Error adding document: ", error);
+            }
+        }
+
+        window.saveQuestion = saveQuestion;
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="quest.html">All Questions</a>
+        <a href="score.html">Score</a>
+    </div>
+
+    <div class="container">
+        <h1>Precipitate Quest</h1>
+        <form onsubmit="event.preventDefault(); saveQuestion();">
+            <label for="level">Level:</label>
+            <select id="level" name="level">
+                <option value="1">Level 1</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+            </select><br>
+
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" placeholder="Enter question here"><br>
+
+            <label for="options">Options:</label>
+            <div class="options-container">
+                <input type="text" id="option1" name="option1" placeholder="Option 1">
+                <input type="text" id="option2" name="option2" placeholder="Option 2">
+                <input type="text" id="option3" name="option3" placeholder="Option 3">
+            </div>
+
+            <label for="answer">Answer:</label>
+            <input type="text" id="answer" name="answer" placeholder="Enter the correct answer"><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

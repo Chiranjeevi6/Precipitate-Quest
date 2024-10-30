@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrecipitateQuest - Questions</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            height: 100vh;
+            background: url('images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+            padding: 20px 40px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: auto;
+            max-height: 80%;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffcc00;
+        }
+
+        .total-questions {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+            font-size: 1.1em;
+        }
+
+        .question-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .delete-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Home button styling */
+        .home-btn {
+            background-color: #ffcc00;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+        }
+
+        .home-btn:hover {
+            background-color: #e6b800;
+        }
+
+        /* Scroll bar styling */
+        .container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background-color: #ffcc00;
+            border-radius: 20px;
+            border: 3px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="home-btn" onclick="window.location.href='file:///C:/Users/S565126/Downloads/game/PrecipitateQuestWeb/home.html'">Home</button>
+        <h1>Precipitate Quest</h1>
+        <div class="total-questions" id="total-questions">Total number of questions: 0</div>
+        <ul id="question-list" class="question-list"></ul>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, deleteDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+ 
+        const firebaseConfig = {
+            apiKey: "AIzaSyChcFtCcNRJGQVyK9TgixJjzxFlwQqcGgo",
+            authDomain: "precipitatequest.firebaseapp.com",
+            projectId: "precipitatequest",
+            storageBucket: "precipitatequest.appspot.com",
+            messagingSenderId: "303381060115",
+            appId: "1:303381060115:web:e3526edec4576f3552fde6",
+            measurementId: "G-5WVWHY1WTT"
+        };
+ 
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+ 
+        // Load and display questions
+        async function loadQuestions() {
+            const questionCollection = collection(db, "questions");
+            const questionSnapshot = await getDocs(questionCollection);
+            const questionList = document.getElementById('question-list');
+            const totalQuestions = document.getElementById('total-questions');
+            questionList.innerHTML = '';
+            let count = 0;
+ 
+            questionSnapshot.forEach((doc) => {
+                count++;
+                const data = doc.data();
+                const question = data.question;
+                const options = data.options;
+                const answer = data.answer;
+                const level = data.level;
+ 
+                const li = document.createElement('li');
+                li.classList.add('question-item');
+                li.innerHTML = `
+                    <span>${question} (Level ${level})</span>
+                    <div>Options: ${options.join(', ')}</div>
+                    <div>Answer: ${answer}</div>
+                    <div class="actions">
+                        <button onclick="editQuestion('${doc.id}', '${question}', '${options}', '${answer}', '${level}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteQuestion('${doc.id}')">Delete</button>
+                    </div>
+                `;
+                questionList.appendChild(li);
+            });
+ 
+            totalQuestions.textContent = `Total number of questions: ${count}`;
+        }
+ 
+        // Edit question including options and answer
+        async function editQuestion(id, currentQuestion, currentOptions, currentAnswer, currentLevel) {
+            const newQuestion = prompt("Edit the question:", currentQuestion);
+            if (!newQuestion) return;
+ 
+            const newOptions = prompt("Edit the options (comma separated):", currentOptions);
+            if (!newOptions) return;
+ 
+            const newAnswer = prompt("Edit the answer:", currentAnswer);
+            if (!newAnswer) return;
+ 
+            const EQuestion = newQuestion.trim();
+            const EOptions = newOptions.split(',').map(opt => opt.trim());
+            const EAnswer = newAnswer.trim();
+ 
+            // Check if the edited question already exists in the same level
+            const questionCollection = collection(db, "questions");
+            const questionQuery = query(questionCollection,
+                where("question", "==", EQuestion),
+                where("level", "==", currentLevel)
+            );
+ 
+            const querySnapshot = await getDocs(questionQuery);
+            if (!querySnapshot.empty) {
+                alert("This question already exists in this level.");
+                return;
+            }
+ 
+            // Update the question, options, and answer in the database
+            await updateDoc(doc(db, "questions", id), {
+                question: EQuestion,
+                options: EOptions,
+                answer: EAnswer
+            });
+            alert("Question updated successfully!");
+            loadQuestions();
+        }
+ 
+        // Delete question
+        async function deleteQuestion(id) {
+            if (confirm("Are you sure you want to delete this question?")) {
+                await deleteDoc(doc(db, "questions", id));
+                alert("Question deleted successfully!");
+                loadQuestions();
+            }
+        }
+ 
+        // Make the functions globally accessible
+        window.loadQuestions = loadQuestions;
+        window.deleteQuestion = deleteQuestion;
+        window.editQuestion = editQuestion;
+ 
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>
