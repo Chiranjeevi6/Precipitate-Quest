@@ -17,8 +17,8 @@
 [ext_resource type="Script" path="res://pq/Scripts/TextboxScript.gd" id="13_iod6u"]
 [ext_resource type="Texture2D" uid="uid://bn4ser8ntbvaw" path="res://pq/Assets/Exit Button.png" id="14_12ov3"]
 [ext_resource type="Theme" uid="uid://binb8tymyiycd" path="res://pq/Menu/mainMenu-button.tres" id="15_fr16m"]
-[ext_resource type="AudioStream" uid="uid://bale0cpob6enl" path="res://pq/Assets/Audio/Reward.mp3" id="16_m06uk"]
-[ext_resource type="AudioStream" uid="uid://v7rnbj67dmp5" path="res://pq/Assets/Audio/wrong.mp3" id="17_wlhxi"]
+[ext_resource type="AudioStream" uid="uid://o4sqvidbwoyw" path="res://pq/Level/chik_tapak_dum_dum.mp3" id="18_arjg6"]
+[ext_resource type="AudioStream" uid="uid://djlcqhd7vr6kc" path="res://pq/Level/mathu_vadalara_oo.mp3" id="19_jp1xt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibdl1"]
 bg_color = Color(0.00800417, 0.00538258, 0.00125689, 1)
@@ -253,10 +253,10 @@ theme_override_font_sizes/font_size = 60
 text = "Sorry.. Try again next time!"
 
 [node name="PointsLabel" type="Label" parent="."]
-offset_left = 47.0
-offset_top = 14.0
-offset_right = 339.0
-offset_bottom = 118.0
+offset_left = 107.0
+offset_top = 18.0
+offset_right = 328.0
+offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("4_noo73")
 theme_override_font_sizes/font_size = 55
 text = "Points : 0 "
@@ -264,10 +264,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="correct" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("16_m06uk")
+stream = ExtResource("18_arjg6")
 
 [node name="wrong" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("17_wlhxi")
+stream = ExtResource("19_jp1xt")
+
+[node name="QNo" type="Label" parent="."]
+offset_left = 161.0
+offset_top = -2.0
+offset_right = 255.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 25
+text = "QNo : 1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Flasks/FlaskHolder/Option1" to="." method="_on_chem_button_pressed" binds= [0]]
 [connection signal="pressed" from="Flasks/FlaskHolder/Option2" to="." method="_on_chem_button_pressed" binds= [1]]
