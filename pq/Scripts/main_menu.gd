@@ -7,13 +7,17 @@ var musicVolume = 1
 var sfxVolume = 1
 var curr_scene = ""
 
-@onready var button_order = ["mapMenu/map/map-level1", "mapMenu/map/map-level2", "mapMenu/map/map-level3", "mapMenu/map/map-level4"]
+@onready var button_order = ["mapMenu/map/map-level1", "mapMenu/map/map-level2", "mapMenu/map/map-level3"]
+
 # Called when the node enters the scene tree for the first time
 func _ready():
 	background_music = $"background-music"
 	background_music.play()
 	update_level_access()
 	congrats()
+	print(UserPreferences.get_auth_localid())
+	print(await FirebaseManager.unlockLevel())
+	#FirebaseManager.getQuestionAccordingToLevel("level1")
 
 func _process(delta):
 	$background.scroll_offset.x -= 60 * delta
@@ -24,20 +28,16 @@ func _process(delta):
 
 # Start Button - Go to the Map and create the table
 func _on_mainstart_btn_pressed():
+	if FirebaseManager.level1CorrectDict.is_empty():
+		return
 	$"sound-effect".play()
-
-	# Initialize the SQLite database object
 	$mapMenu.visible = true
 	$mainMenu.visible = false
 	$descMenu.visible = false
 	$insrMenu.visible = false
-	$Control/SID.visible = false
-	$Control/FirstName.visible = false
-	$Control/LastName.visible = false
-	$Control/Label.visible = false
-	$Control/Label2.visible = false
-	$Control/Label3.visible = false
+	$logoutBtn.visible = false
 	update_level_access()
+
 
 # Options Button - Go to the option
 func _on_mainoption_btn_pressed():
@@ -46,6 +46,7 @@ func _on_mainoption_btn_pressed():
 	$mainMenu.visible = false
 	$descMenu.visible = false
 	$insrMenu.visible = false
+	$logoutBtn.visible = false
 
 # Description Button
 func _on_maindesc_btn_pressed():
@@ -54,6 +55,7 @@ func _on_maindesc_btn_pressed():
 	$mainMenu.visible = false
 	$descMenu.visible = true
 	$insrMenu.visible = false
+	$logoutBtn.visible = false
 
 func _on_maininsr_btn_pressed():
 	$"sound-effect".play()
@@ -61,6 +63,7 @@ func _on_maininsr_btn_pressed():
 	$mainMenu.visible = false
 	$descMenu.visible = false
 	$insrMenu.visible = true
+	$logoutBtn.visible = false
 
 func _complete_game():
 	$"sound-effect".play()
@@ -75,10 +78,32 @@ func _complete_game():
 # --------------------------------------------------------------
 
 func update_level_access():
-	# Unlock all levels
+	
+	await FirebaseManager.getQuestionAccordingToLevel()
+	
+	# Loop through the buttons and disable all
 	for x in range(button_order.size()):
-		get_node(button_order[x]).set_disabled(false)  # Unlock the level button
-		get_node(button_order[x]).add_theme_color_override("font_color", "Green")  # Show the level as accessible
+			get_node(button_order[x]).set_disabled(true)  # Lock the level button
+			get_node(button_order[x]).add_theme_color_override("font_color", "Gray")  # Show the level as locked
+
+# Get the unlocked levels from the Firestore document
+	var unlocked_levels = await FirebaseManager.unlockLevel()  # Call the unlockLevel function
+	get_node(button_order[0]).set_disabled(false)  # Unlock the level button
+	get_node(button_order[0]).add_theme_color_override("font_color", "Green")   
+	
+	if unlocked_levels.has("level1"):
+			get_node(button_order[0]).set_disabled(false)  # Unlock the level button
+			get_node(button_order[0]).add_theme_color_override("font_color", "Green")  # S
+			get_node(button_order[1]).set_disabled(false)  # Unlock the level button
+			get_node(button_order[1]).add_theme_color_override("font_color", "Green")  # S
+		
+	if unlocked_levels.has("level2"):
+			get_node(button_order[0]).set_disabled(false)  # Unlock the level button
+			get_node(button_order[0]).add_theme_color_override("font_color", "Green")  # S
+			get_node(button_order[1]).set_disabled(false)  # Unlock the level button
+			get_node(button_order[1]).add_theme_color_override("font_color", "Green")  #  S
+			get_node(button_order[2]).set_disabled(false)  # Unlock the level button
+			get_node(button_order[2]).add_theme_color_override("font_color", "Green")  # S
 
 func congrats():
 	# Check if all levels are completed
@@ -100,6 +125,7 @@ func _on_optionback_btn_pressed():
 	$mainMenu.visible = true
 	$descMenu.visible = false
 	$insrMenu.visible = false
+	$logoutBtn.visible = false
 
 # Volume setup
 func volume(bus_index, value):
@@ -146,41 +172,10 @@ func _on_optionsfx_box_toggled(toggled_on):
 # Switch scene when a level button is pressed
 func _on_mapbtn_pressed(level):
 	$"sound-effect".play()
-	var database = SQLite.new()
-	database.path = "res://data.db"  # Specify the path to your SQLite database
-	var db_opened = database.open_db()
-
-	if db_opened:
-		print("Opened database successfully (" + database.path + ")")
-		
-		# Create the players table if it doesn't exist
-		var table = {
-			"sid" : {"data_type": "text", "primary_key": true, "not_null": true},
-			"first_name" : {"data_type": "text"},
-			"last_name" : {"data_type": "text"},
-			"current_level" : {"data_type": "text"},
-			"score" : {"data_type": "int"}
-		}
-		database.create_table("players", table)
-	else:
-		print("Failed to open database!")
-
-	# Get and print the current scene name
-	var curr_scene = get_tree().current_scene.name
-	print("Current scene: " + curr_scene)
-	var data = {
-		"sid" : $Control/SID.text,
-		"first_name" : $Control/FirstName.text,
-		"last_name" : $Control/LastName.text,
-		"current_level" : curr_scene,
-		"score" : null
-	}
-	database.insert_row("players", data)
 	$mapMenu.visible = false
 	$mainMenu.visible = false
-	get_tree().change_scene_to_file("res://pq/" + level + ".tscn")
-
-	
+	$descMenu.visible = false
+	get_tree().change_scene_to_file("res://pq/" + level +".tscn")
 
 # Back Button: Go back to the main menu
 func _on_mapback_btn_pressed():
@@ -189,3 +184,15 @@ func _on_mapback_btn_pressed():
 	$mainMenu.visible = true
 	$descMenu.visible = false
 	$insrMenu.visible = false
+	$logoutBtn.visible = true
+
+# --------------------------------------------------------------
+# Database Update Functionality
+# --------------------------------------------------------------
+
+# Update player's current level in the database
+
+
+func _on_logout_btn_pressed():
+	Firebase.Auth.logout()
+	get_tree().change_scene_to_file("res://pq/Authentication.tscn")
